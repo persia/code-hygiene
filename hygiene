@@ -1,0 +1,32 @@
+# Copyright 2017 Emmet Hikory <persia@shipstone.jp>
+# SPDX-License-Identifier: ISC
+
+GIVEN A source repository
+ WHEN A binary file exists in the repository
+ THEN A .license file exists for the binary file
+
+GIVEN A source repository
+ WHEN A text file exists outside /licenses
+  AND The text file is not a .license file
+ THEN The text file contains an SPDX tag
+  AND The text file does not contain license text
+
+GIVEN A source repository
+ WHEN A text file exists outside /licenses/
+      The text file contains an SPDX tag
+ THEN A license for the tag exists in /licenses/
+
+GIVEN A source repository
+ WHEN A license exists in /licenses/
+ THEN The license is referenced in an SPDX tag in another file
+
+GIVEN A source repository
+ WHEN A text file exists outside /licenses
+ THEN The text file contains a copyright assertion
+
+GIVEN A source repository
+  AND A patch
+  AND A MAINTAINERS file
+ WHEN The patch changes a text file outside /licenses
+  AND The change modifies more than 1% of at least one function
+ THEN The copyright assertion matches the affiliation for the author
